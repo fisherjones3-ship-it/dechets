@@ -159,10 +159,14 @@ document.addEventListener('keydown', function(e) {
 # ---------- music ------------------------------------------------------
 
 def build_music_set(folder, slug, label):
-    files = listdir('music/' + folder, AUDIO_EXT)
+    # files in music/<folder>/ ; plus, for test, any loose files in music/
+    files = [('music/%s/%s' % (folder, f)) for f in listdir('music/' + folder, AUDIO_EXT)]
+    if slug == 'test':
+        files += [('music/%s' % f) for f in listdir('music', AUDIO_EXT)]
+    files = sorted(set(files), key=lambda s: os.path.basename(s).lower())
     blocks = []
-    for f in files:
-        rel = 'music/%s/%s' % (folder, f)
+    for rel in files:
+        f = os.path.basename(rel)
         blocks.append(
             '    <div class="track">\n'
             '      <div class="track-title">%s</div>\n'
