@@ -1,184 +1,176 @@
 # How to update your site
 
-Your pages: `index.html` is **home** (just the mailing list). `music.html`
-lists **test** and **ep**, which are `music-test.html` and `music-ep.html`.
-Then `gallery.html` and `notes.html`.
+You don't edit any code. You put files in folders and the site rebuilds
+itself. That's the whole system.
 
-No tech background needed. Everything is plain text you can edit in a browser.
+**Your site:** https://dechets.us
+**Where it lives:** https://github.com/fisherjones3-ship-it/dechets
 
 ---
 
-## The one-time setup
+## The one thing to install
 
-1. Make a free GitHub account (or log into the one you have)
-2. Make a **public** repository
-3. Upload this whole folder
-4. Turn on Pages: repo **Settings → Pages**, source = `main` branch, folder = `/ (root)`
-5. Point your domain at it
+**GitHub Desktop** — free, from https://desktop.github.com
 
-After that, updating is just editing files on github.com in your browser.
+Install it, sign in with your GitHub account, and choose
+**Clone a repository** → `fisherjones3-ship-it/dechets`.
+
+That puts a folder on your computer that mirrors your website. From then on
+every update is the same three steps:
+
+1. **Put a file in the right folder**
+2. Open GitHub Desktop, type a few words in the box at the bottom left,
+   click **Commit to main**
+3. Click **Push origin** at the top
+
+Wait about two minutes. The site rebuilds itself and the change is live.
+
+You never open an HTML file. You never type a command.
+
+---
+
+## The folders
+
+```
+images/          your paintings
+music/test/      songs on the "test" page
+music/ep/        songs on the "ep" page
+notes/           your writing
+```
 
 ---
 
 ## Adding a painting
 
-1. Go to your repo on github.com
-2. Click the `images` folder → **Add file** → **Upload files**
-3. Drag your image in. Name it something simple like `bluepainting.jpg` (no spaces)
-4. Click **Commit changes**
-5. Go back and click `gallery.html` → click the **pencil icon** to edit
-6. Find one of these blocks inside `<div class="gallery-grid">`:
+Drop the image into **`images/`**. That's it — commit and push.
 
-```html
-<div class="gallery-item" onclick="openLightbox(this)">
-  <img src="images/cow.jpg" alt="">
-</div>
+The gallery page rebuilds itself with the new painting in it, and the
+lightbox works automatically.
+
+**Order:** paintings appear in filename order. To control where one sits,
+put a number at the front:
+
+```
+01-cow.jpg
+02-sailor.jpg
 ```
 
-7. Copy it, paste it right below, then change one thing:
-   - `images/cow.jpg` → `images/bluepainting.jpg`
-8. Click **Commit changes**
-9. Nothing else to update - the gallery has no counter
+Files without a number sort alphabetically. Mixing is fine.
 
-Your site updates in about a minute.
-
-**Tip:** resize photos to about 1500 pixels wide before uploading. Big files make the site slow.
+**Size:** resize to about 1500–2000 pixels on the long edge before adding.
+Anything under 1MB keeps the site fast.
 
 ---
 
 ## Adding a song
 
-Your songs are `.wav` files. They are big, so they do **not** go through the
-github.com upload button — that button rejects anything over 25MB. Songs have
-to go up with git, using the same command list you used the first time.
+Drop the `.wav` into **`music/test/`** or **`music/ep/`**. Commit and push.
 
-1. Put the new `.wav` into the `music` folder inside `dechets-site` on your computer.
-   Simple name, no spaces — like `slowcollapse.wav`
-2. Open `music-test.html` (or `music-ep.html` for albums) in Notepad and find this block:
+**The filename becomes the song title.** Put a number in front for order —
+`01` shows at the top.
 
-```html
-<div class="track">
-  <div class="track-title">BREAKS 7_23</div>
-  <div class="track-info">2026</div>
-  <audio controls preload="none">
-    <source src="music/breaks-7-23.wav" type="audio/wav">
-  </audio>
-  <a href="music/breaks-7-23.wav" download class="track-download">download</a>
-</div>
+```
+01-BOHEM.wav        shows as     BOHEM
+02-Lander pt3.wav   shows as     Lander pt3
 ```
 
-3. Copy it, paste it above the others (newest first), change:
-   - `BREAKS 7_23` → your song title
-   - `2026` → the year
-   - **Both** places that say `music/breaks-7-23.wav` → `music/slowcollapse.wav`
-4. Bump the count next to `test` or `ep` on `music.html`
-5. Push it up (see **Pushing changes with git** at the bottom)
+Spaces and capitals are fine. The number and the `.wav` are stripped off,
+everything else is used exactly as you typed it.
 
-Pictures and text can still be edited straight on github.com in your browser.
-Only audio needs git.
+The year is filled in automatically from when you added the file.
+
+**Songs must go through GitHub Desktop**, not the website — github.com's
+upload button rejects anything over 25MB and your songs are bigger than
+that. GitHub Desktop handles up to 100MB per file.
 
 ---
 
 ## Adding a note
 
-1. Click `notes.html` → **pencil icon**
-2. Find the first `<article class="post">` block
-3. Paste this **above** it:
+Make a text file in **`notes/`**. Name it with the date first:
 
-```html
-<article class="post">
-  <div class="post-date">2026.09.01</div>
-  <div class="post-title">your title</div>
-  <div class="post-body">
-    <p>your first paragraph goes here.</p>
-    <p>your second paragraph goes here.</p>
-  </div>
-</article>
+```
+2026-09-14-on-the-cardboard-pieces.txt
 ```
 
-4. Change the date, title, and text
-5. Click **Commit changes**
-6. That's it - notes has no counter
+Inside, the **first line is the title**. Everything after is the body.
+Leave a blank line between paragraphs:
 
-The only rule: every paragraph starts with `<p>` and ends with `</p>`.
+```
+On the cardboard pieces
+
+I started these in the winter.
+
+The boxes came from the shop on the corner.
+```
+
+Newest date appears at the top automatically. Write it in Notepad — save as
+`.txt`, that's all it needs.
+
+---
+
+## Removing something
+
+Delete the file from the folder, commit, push. The page rebuilds without it.
+
+---
+
+## Small edits without GitHub Desktop
+
+For text-only changes you can work straight on github.com in your browser:
+open the file, click the **pencil icon**, edit, click **Commit changes**.
+Fine for notes and for deleting things. Not for songs.
 
 ---
 
 ## Changing the background drawing
 
 The drawing behind every page is `images/bg.png`. It is white lines on a
-transparent background — that's what keeps it from showing as a grey box on
-the black.
+transparent background — that's what keeps it from showing as a grey box.
 
-- **To swap it:** upload a new file named `bg.png` to the `images` folder.
-- **To make it stronger or fainter:** open `style.css`, find `--bg-opacity: 0.16;`
-  near the top, and change the number. `0.05` is barely there, `0.35` is loud.
-  There's a second, lower value further down inside the mobile section.
-
----
-
-## Setting up the newsletter
-
-Emails need to land in your inbox at **fisher.jones@dechets.us**.
-
-1. Go to **formspree.io** and sign up (free tier: 50 submissions/month)
-2. Create a new form, set the destination email to `fisher.jones@dechets.us`
-3. Copy your form ID — a short code like `xrgjkabc`
-4. In each of the six HTML files, find `YOUR_FORM_ID` and replace it with that code
-5. Commit the changes
-
-There are six spots to change — one on each page. The form will not work
-until you do this.
+- **To swap it:** replace `bg.png` with a new file of the same name. It must
+  also be white line art on transparent, or you'll get a grey rectangle.
+- **Stronger or fainter:** open `style.css`, find `--bg-opacity: 0.16;` near
+  the top, change the number. `0.05` is barely there, `0.35` is loud. There's
+  a second, lower value in the mobile section at the bottom.
 
 ---
 
-## Pointing your domain at the site
+## Your newsletter
 
-Two things have to happen, in either order:
-
-1. **In the repo:** add a file named `CNAME` (all caps, no extension) whose
-   only contents are your domain — `dechets.us` — nothing else, no
-   `http://`, no trailing slash.
-2. **At your registrar's DNS settings:** four A records on the root domain
-   pointing at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
-   `185.199.111.153`, plus a CNAME record for `www` pointing at your
-   `username.github.io` address.
-
-DNS changes can take anywhere from ten minutes to a day to take effect.
-
-**Don't cancel Squarespace until the new site is live on the domain and you've
-loaded it yourself.**
+Sign-ups go to Formspree and land at **fisher.jones@dechets.us**.
+Manage them at https://formspree.io — the form is `mjybqnro`.
+Free tier is 50 submissions a month.
 
 ---
 
 ## Things to avoid
 
-- **Spaces in filenames.** Use `my-painting.jpg`, not `my painting.jpg`
-- **Deleting the `<` or `>` characters.** If a page looks broken, you probably deleted one by accident. GitHub keeps every old version, so you can always undo.
-- **Uploading huge files.** Keep images under about 1MB. Audio can be up to
-  100MB per file, but only when pushed with git — github.com's upload button
-  caps out at 25MB.
-- **Deleting `.nojekyll`.** It's an empty file and it looks pointless. GitHub Pages needs it.
+- **Don't rename or delete `.nojekyll`, `CNAME`, `build.py`, or the
+  `.github` folder.** They look pointless. They are what make the site work.
+- **Don't edit `gallery.html`, `music.html`, `music-test.html`,
+  `music-ep.html` or `notes.html`.** They are rewritten from the folders on
+  every push, so your changes would be wiped. Change the folders instead.
+- **You can edit `index.html` and `style.css`** — those are yours, nothing
+  overwrites them.
+- **Keep songs under 100MB each.** That's a hard GitHub limit.
 
 ---
 
 ## If something breaks
 
-GitHub saves every version. Go to your repo, click **History** (the clock icon), find the last version that worked, and revert to it. Nothing is ever permanently lost.
+GitHub keeps every version. Go to the repository, click the clock icon
+(**History**), find the last version that worked, and revert to it.
+Nothing is ever permanently lost.
+
+If a push seems to do nothing, check the **Actions** tab on GitHub — a red X
+means the rebuild failed and the message there will say why.
 
 ---
 
-## Pushing changes with git
+## What costs money
 
-Only needed when you change audio. For anything else, edit on github.com.
+Nothing. GitHub Pages hosting is free, the rebuild robot is free for public
+repositories, and Formspree's free tier covers 50 sign-ups a month.
 
-1. Open **PowerShell** (press Start, type `powershell`, hit Enter)
-2. Paste these three lines one at a time, pressing Enter after each:
-
-```
-cd $HOME\Downloads\dechets-site
-git add -A
-git commit -m "update" ; git push
-```
-
-Your site updates in about a minute.
+The only bill is your domain, `dechets.us`, which renews **28 March 2027**.
