@@ -1,0 +1,10 @@
+# Controls the order and titles of the songs on the "test" page.
+# One song per line:   filename.wav = Title shown on the site
+# The order of these lines is the order on the page.
+
+breaks-7-23.wav          = BREAKS 7_23
+622-b.wav                = 622_b
+cormac-pt2.wav           = Cormac pt2
+lander-pt3.wav           = Lander pt3
+lander-intermission.wav  = Lander_intermission
+bohem.wav                = BOHEM
