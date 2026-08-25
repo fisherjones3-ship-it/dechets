@@ -138,9 +138,45 @@ transparent background — that's what keeps it from showing as a grey box.
 
 ## Your newsletter
 
-Sign-ups go to Formspree and land at **fisher.jones@dechets.us**.
-Manage them at https://formspree.io — the form is `mjybqnro`.
-Free tier is 50 submissions a month.
+You collect the addresses and you send the emails yourself. No service, no
+monthly fee, and the list belongs to you.
+
+### When someone subscribes
+
+Formspree emails you at **fisher.jones@dechets.us** every time someone signs
+up on the site. You can also see every subscriber at https://formspree.io
+under the form **mjybqnro**.
+
+**Do this once per new subscriber:** add their address to a contact group in
+Gmail so you never have to hunt for it later.
+
+1. Open https://contacts.google.com
+2. **Create contact** -> paste their email -> Save
+3. Tick the contact, click the **label icon**, choose **+ Create label**, name
+   it `dechets`. After the first time, just pick the existing `dechets` label.
+
+### When you want to mail everyone
+
+1. Open Gmail, click **Compose**
+2. Click **Bcc** on the right of the To line
+3. Type `dechets` — Gmail expands the label into every address
+4. Put your own address in the **To** line
+5. Write it and send
+
+**Use Bcc, never To or Cc.** Bcc hides the list. If you use To, every
+subscriber sees everyone else's email address.
+
+### The limits, honestly
+
+- **Formspree free tier is 50 sign-ups a month.** Past that, new sign-ups are
+  rejected until the month resets. Fine unless something of yours goes viral.
+- **Google caps you at 2,000 recipients a day.** Not a concern for a while.
+- **Big Bcc sends can land in spam.** Under about 100 at a time is safest.
+  Beyond a few hundred subscribers, a real newsletter service starts earning
+  its keep — Kit is free up to 10,000.
+- **Export a backup now and then.** In Formspree, download your submissions
+  as a CSV and keep it somewhere. If the account ever lapses, you still have
+  the list.
 
 ---
 

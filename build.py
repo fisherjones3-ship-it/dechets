@@ -158,12 +158,42 @@ document.addEventListener('keydown', function(e) {
 
 # ---------- music ------------------------------------------------------
 
+def read_order(folder):
+    """Optional music/<folder>/order.txt  ->  filename = Display Title
+       Line order sets page order. Missing files fall back to filename."""
+    for cand in ('music/%s/order.txt' % folder, 'music/order.txt' if folder == 'test' else None):
+        if not cand:
+            continue
+        fp = os.path.join(ROOT, cand)
+        if os.path.isfile(fp):
+            pairs = []
+            for line in open(fp, encoding='utf-8'):
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                name, _, title = line.partition('=')
+                pairs.append((name.strip(), title.strip()))
+            return pairs
+    return []
+
+
 def build_music_set(folder, slug, label):
     # files in music/<folder>/ ; plus, for test, any loose files in music/
     files = [('music/%s/%s' % (folder, f)) for f in listdir('music/' + folder, AUDIO_EXT)]
     if slug == 'test':
         files += [('music/%s' % f) for f in listdir('music', AUDIO_EXT)]
     files = sorted(set(files), key=lambda s: os.path.basename(s).lower())
+
+    titles = {}
+    ordered = []
+    for name, title in read_order(folder):
+        match = [r for r in files if os.path.basename(r) == name]
+        if match:
+            ordered.append(match[0])
+            if title:
+                titles[match[0]] = title
+    files = ordered + [r for r in files if r not in ordered]
+
     blocks = []
     for rel in files:
         f = os.path.basename(rel)
@@ -176,7 +206,7 @@ def build_music_set(folder, slug, label):
             '      </audio>\n'
             '      <a href="%s" download class="track-download">download</a>\n'
             '    </div>' % (
-                html.escape(strip_order(f)), year_added(rel), url(rel),
+                html.escape(titles.get(rel, strip_order(f))), year_added(rel), url(rel),
                 'wav' if f.lower().endswith('.wav') else 'mpeg', url(rel)))
     body = '''  <section class="section">
     <div class="section-label">music / %s</div>
