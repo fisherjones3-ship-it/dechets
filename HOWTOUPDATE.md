@@ -1,5 +1,9 @@
 # How to update your site
 
+Your pages: `index.html` is **home** (just the mailing list). `music.html`
+lists **test** and **ep**, which are `music-test.html` and `music-ep.html`.
+Then `gallery.html` and `notes.html`.
+
 No tech background needed. Everything is plain text you can edit in a browser.
 
 ---
@@ -34,7 +38,7 @@ After that, updating is just editing files on github.com in your browser.
 7. Copy it, paste it right below, then change one thing:
    - `images/cow.jpg` → `images/bluepainting.jpg`
 8. Click **Commit changes**
-9. On `index.html`, bump the number next to `gallery` so the count stays right
+9. Nothing else to update - the gallery has no counter
 
 Your site updates in about a minute.
 
@@ -50,7 +54,7 @@ to go up with git, using the same command list you used the first time.
 
 1. Put the new `.wav` into the `music` folder inside `dechets-site` on your computer.
    Simple name, no spaces — like `slowcollapse.wav`
-2. Open `music.html` in Notepad and find this block:
+2. Open `music-test.html` (or `music-ep.html` for albums) in Notepad and find this block:
 
 ```html
 <div class="track">
@@ -67,7 +71,7 @@ to go up with git, using the same command list you used the first time.
    - `BREAKS 7_23` → your song title
    - `2026` → the year
    - **Both** places that say `music/breaks-7-23.wav` → `music/slowcollapse.wav`
-4. Bump the `music` count on `index.html`
+4. Bump the count next to `test` or `ep` on `music.html`
 5. Push it up (see **Pushing changes with git** at the bottom)
 
 Pictures and text can still be edited straight on github.com in your browser.
@@ -94,7 +98,7 @@ Only audio needs git.
 
 4. Change the date, title, and text
 5. Click **Commit changes**
-6. Bump the `notes` count on `index.html`
+6. That's it - notes has no counter
 
 The only rule: every paragraph starts with `<p>` and ends with `</p>`.
 
@@ -120,10 +124,10 @@ Emails need to land in your inbox at **fisher.jones@dechets.us**.
 1. Go to **formspree.io** and sign up (free tier: 50 submissions/month)
 2. Create a new form, set the destination email to `fisher.jones@dechets.us`
 3. Copy your form ID — a short code like `xrgjkabc`
-4. In each of the four HTML files, find `YOUR_FORM_ID` and replace it with that code
+4. In each of the six HTML files, find `YOUR_FORM_ID` and replace it with that code
 5. Commit the changes
 
-There are four spots to change — one on each page. The form will not work
+There are six spots to change — one on each page. The form will not work
 until you do this.
 
 ---
