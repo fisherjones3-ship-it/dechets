@@ -2,6 +2,7 @@
 # One song per line:   filename.wav = Title shown on the site
 # The order of these lines is the order on the page.
 
+00-cavitation_01.wav     = cavitation_01
 01-001_04A.wav           = 001_04A
 02-001_04B.wav           = 001_04B
 breaks-7-23.wav          = BREAKS 7_23

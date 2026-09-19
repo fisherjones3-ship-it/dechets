@@ -218,14 +218,14 @@ def build_music_set(folder, slug, label):
     return len(files)
 
 
-def build_music_index(n_test, n_ep):
+def build_music_index(n_main, n_test):
     body = '''  <section class="section">
     <div class="section-label">music</div>
     <div class="index-list">
+      <a href="music-main.html" class="index-row"><span>Main</span><span class="index-count">%d</span></a>
       <a href="music-test.html" class="index-row"><span>test</span><span class="index-count">%d</span></a>
-      <a href="music-ep.html" class="index-row"><span>ep</span><span class="index-count">%d</span></a>
     </div>
-  </section>''' % (n_test, n_ep)
+  </section>''' % (n_main, n_test)
     write('music.html', page('music', 'music', body))
 
 
@@ -286,8 +286,8 @@ def write(name, content):
 if __name__ == '__main__':
     print('building dechets.us')
     g = build_gallery()
+    m = build_music_set('main', 'main', 'Main')
     t = build_music_set('test', 'test', 'test')
-    e = build_music_set('ep', 'ep', 'ep')
-    build_music_index(t, e)
+    build_music_index(m, t)
     n = build_notes()
-    print('  %d paintings, %d test tracks, %d ep tracks, %d notes' % (g, t, e, n))
+    print('  %d paintings, %d Main tracks, %d test tracks, %d notes' % (g, m, t, n))
