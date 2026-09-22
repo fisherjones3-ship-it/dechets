@@ -1,0 +1,14 @@
+# Order and titles for the "test" page.
+# One song per line:   filename.wav = Title shown on the site
+# The order of these lines is the order on the page.
+
+septep-test-track-02.wav = SeptEP_Test Track_02
+septep-test-track-01.wav = SEPTEP_test track_01
+01-001_04A.wav           = 001_04A
+02-001_04B.wav           = 001_04B
+breaks-7-23.wav          = BREAKS 7_23
+622-b.wav                = 622_b
+cormac-pt2.wav           = Cormac pt2
+lander-pt3.wav           = Lander pt3
+lander-intermission.wav  = Lander_intermission
+bohem.wav                = BOHEM

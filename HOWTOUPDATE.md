@@ -64,24 +64,31 @@ Anything under 1MB keeps the site fast.
 
 ## Adding a song
 
-Drop the `.wav` into **`music/test/`** or **`music/ep/`**. Commit and push.
+Each folder inside `music/` is a section on the music page:
 
-**The filename becomes the song title.** Put a number in front for order —
-`01` shows at the top.
+```
+music/cavitation/   the album
+music/test/         test tracks
+```
+
+**To add a song:** drop the `.wav` into the right folder. The filename becomes
+the title — put a number in front for order (`01-` shows first):
 
 ```
 01-BOHEM.wav        shows as     BOHEM
-02-Lander pt3.wav   shows as     Lander pt3
 ```
 
-Spaces and capitals are fine. The number and the `.wav` are stripped off,
-everything else is used exactly as you typed it.
+If a folder has an `order.txt`, that file sets order and titles instead
+(one line per song: `filename.wav = Title`). `music/test/` uses one.
 
-The year is filled in automatically from when you added the file.
+**To add a whole album:** make a new folder in `music/`, drop the tracks in,
+and put the artwork in the same folder named `cover.jpg`. Then add the
+folder name to `music/sections.txt` where you want it on the page. The cover
+shows on the music page and above the tracks.
 
-**Songs must go through GitHub Desktop**, not the website — github.com's
-upload button rejects anything over 25MB and your songs are bigger than
-that. GitHub Desktop handles up to 100MB per file.
+**To remove a section:** delete its folder and its line in `sections.txt`.
+
+Songs are too big for github.com's upload button — use **`PUBLISH.bat`**.
 
 ---
 

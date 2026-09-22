@@ -177,10 +177,50 @@ def read_order(folder):
     return []
 
 
-def build_music_set(folder, slug, label):
+COVER_NAMES = ('cover.jpg', 'cover.jpeg', 'cover.png', 'cover.webp')
+
+
+def music_sections():
+    """Every folder inside music/ is a section on the music page.
+       music/sections.txt (one folder name per line) sets the order;
+       folders not listed there go after, alphabetically."""
+    base = os.path.join(ROOT, 'music')
+    if not os.path.isdir(base):
+        return []
+    folders = sorted(d for d in os.listdir(base)
+                     if os.path.isdir(os.path.join(base, d)) and not d.startswith('.'))
+    listed = []
+    fp = os.path.join(base, 'sections.txt')
+    if os.path.isfile(fp):
+        for line in open(fp, encoding='utf-8'):
+            line = line.strip()
+            if line and not line.startswith('#') and line in folders and line not in listed:
+                listed.append(line)
+    return listed + [f for f in folders if f not in listed]
+
+
+def find_cover(folder):
+    for name in COVER_NAMES:
+        rel = 'music/%s/%s' % (folder, name)
+        if os.path.isfile(os.path.join(ROOT, rel)):
+            return rel
+    return None
+
+
+def cover_html(folder, link=None):
+    rel = find_cover(folder)
+    if not rel:
+        return ''
+    img = '<img src="%s" alt="%s">' % (url(rel), html.escape(folder))
+    if link:
+        return '    <a href="%s" class="cover">%s</a>\n' % (link, img)
+    return '    <div class="cover">%s</div>\n' % img
+
+
+def build_music_set(folder):
     # files in music/<folder>/ ; plus, for test, any loose files in music/
     files = [('music/%s/%s' % (folder, f)) for f in listdir('music/' + folder, AUDIO_EXT)]
-    if slug == 'test':
+    if folder == 'test':
         files += [('music/%s' % f) for f in listdir('music', AUDIO_EXT)]
     files = sorted(set(files), key=lambda s: os.path.basename(s).lower())
 
@@ -212,21 +252,35 @@ def build_music_set(folder, slug, label):
     <div class="section-label">music / %s</div>
 
 %s
+%s
 
-  </section>''' % (label, '\n\n'.join(blocks))
-    write('music-%s.html' % slug, page(label, 'music', body))
+  </section>''' % (html.escape(folder), cover_html(folder), '\n\n'.join(blocks))
+    write('music-%s.html' % folder, page(folder, 'music', body))
     return len(files)
 
 
-def build_music_index(n_main, n_test):
+def build_music_index(sections):
+    """sections: list of (folder, track count)"""
+    covers = ''.join(cover_html(f, 'music-%s.html' % f) for f, _ in sections)
+    rows = '\n'.join(
+        '      <a href="music-%s.html" class="index-row"><span>%s</span>'
+        '<span class="index-count">%d</span></a>' % (f, html.escape(f), n)
+        for f, n in sections)
     body = '''  <section class="section">
     <div class="section-label">music</div>
-    <div class="index-list">
-      <a href="music-main.html" class="index-row"><span>Main</span><span class="index-count">%d</span></a>
-      <a href="music-test.html" class="index-row"><span>test</span><span class="index-count">%d</span></a>
+%s    <div class="index-list">
+%s
     </div>
-  </section>''' % (n_main, n_test)
+  </section>''' % (covers, rows)
     write('music.html', page('music', 'music', body))
+
+
+def remove_stale_music_pages(keep):
+    """Delete music-*.html pages for sections that no longer exist."""
+    for f in os.listdir(ROOT):
+        if f.startswith('music-') and f.endswith('.html') and f[6:-5] not in keep:
+            os.remove(os.path.join(ROOT, f))
+            print('  removed %s' % f)
 
 
 # ---------- notes ------------------------------------------------------
@@ -286,8 +340,9 @@ def write(name, content):
 if __name__ == '__main__':
     print('building dechets.us')
     g = build_gallery()
-    m = build_music_set('main', 'main', 'Main')
-    t = build_music_set('test', 'test', 'test')
-    build_music_index(m, t)
+    sections = [(f, build_music_set(f)) for f in music_sections()]
+    build_music_index(sections)
+    remove_stale_music_pages([f for f, _ in sections])
     n = build_notes()
-    print('  %d paintings, %d Main tracks, %d test tracks, %d notes' % (g, m, t, n))
+    print('  %d paintings, %s, %d notes' % (
+        g, ', '.join('%d %s' % (n_, f) for f, n_ in sections), n))

@@ -232,6 +232,20 @@ nav a.active { color: var(--white); border-bottom-color: var(--dim); }
 }
 .newsletter-row button:hover { color: var(--white); border-color: var(--dim); }
 
+/* ---- ALBUM COVER ---- */
+/* Any music/<folder>/cover.jpg shows at the top of that section's page and
+   on the music page, linking to it. */
+.cover {
+  display: block;
+  max-width: 340px;
+  margin-bottom: 2.5rem;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, opacity 0.2s;
+}
+a.cover { border-bottom: 1px solid var(--border); }
+a.cover:hover { border-color: var(--dim); opacity: 0.85; }
+.cover img { display: block; width: 100%; height: auto; }
+
 /* ---- FOOTER ---- */
 footer {
   border-top: 1px solid var(--border);
@@ -256,6 +270,7 @@ footer {
   nav a { font-size: 0.8rem; padding: 0.4rem 0; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .index-list { max-width: none; }
+  .cover { max-width: none; }
   .index-row { padding: 1rem 0; font-size: 0.85rem; }
   .track-download { padding: 0.5rem 0; font-size: 0.65rem; }
   .newsletter-row { flex-direction: column; }

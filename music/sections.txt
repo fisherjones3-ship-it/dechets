@@ -1,0 +1,7 @@
+# Sections on the music page, top to bottom.
+# Each name is a folder inside music/. To add an album, make a folder,
+# drop the .wav files in (and a cover.jpg if you want one), and add its
+# name here.
+
+cavitation
+test
